@@ -1,21 +1,29 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, FormControl, InputLabel, TextField, Toolbar,Typography} from '@material-ui/core';
+
+// import IconButton from '@material-ui/core/IconButton';
+import { NavLink } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
+    flex: 1,
   },
   menuButton: {
     marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1,
+    flex: 1,
+    textAlign:'center',
+    borderRadius:'10px'
+    
+  },
+  active:{
+    background:'black',
+  },
+  amount: {
+    flex: 2,
+    marginLeft:"10px",
   },
 }));
 
@@ -24,15 +32,27 @@ export default function ButtonAppBar() {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            {/* <MenuIcon /> */}
-          </IconButton>
+          {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton> */}
           <Typography variant="h6" className={classes.title}>
-            News
+            <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/">
+              新增
+            </NavLink>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Typography variant="h6"  className={classes.title}>
+          <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/list">
+              列表
+            </NavLink>
+          </Typography>
+          <FormControl  className={classes.amount}>
+            <TextField margin="normal" id="standard-error" label="零用金總額" defaultValue="15000" />
+        </FormControl>
+        <FormControl className={classes.amount}>
+            <TextField margin="normal" id="standard-error" label="現金餘額" defaultValue="28" disabled/>
+        </FormControl>
         </Toolbar>
       </AppBar>
     </div>
