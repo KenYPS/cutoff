@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
+ 
   /* color: #fff;
   background: rgba(0, 0, 0, 0.87); */
 }
@@ -16,7 +16,7 @@ html, body, body>div {
 }
 
 a{
-  color: #000;
+  color: #fff;
 }
 a{
   text-decoration: none;
@@ -24,4 +24,8 @@ a{
 a:visited{
   color: #fff;
 }
-html, body { margin:0; padding:0;}
+html, body {
+   margin:0;
+   padding:0;
+   overflow: hidden;
+  }

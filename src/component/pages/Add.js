@@ -9,6 +9,9 @@ import {
 } from '@material-ui/pickers';
 
 import moment from "moment"
+
+import {loginApi} from '../../api'
+
 // style
 const StyledAdd = styled.div`
 padding:30px 10%;
@@ -24,7 +27,11 @@ export default props => {
         // setSelectedDate(date);
     };
     useEffect(() => { });
-    console.log(moment().format('YYYY-MM-D'));
+console.log(process.env);
+
+    const onClickHandler =()=>{
+        loginApi('mikohsu', '098765')
+    }
     return <StyledAdd>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
@@ -33,7 +40,7 @@ export default props => {
                 format="yyyy/MM/dd"
                 margin="normal"
                 id="date-picker-inline"
-                label="Date picker inline"
+                label="記帳日" 
                 value={moment().format('YYYY-MM-D')}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
@@ -78,8 +85,11 @@ export default props => {
             <TextField margin="normal" id="standard-error" defaultValue="" label="項目" />
         </FormControl>
         <FormControl>
+            <TextField margin="normal" id="standard-error" label="詳情" defaultValue="" />
+        </FormControl>
+        <FormControl>
             <TextField margin="normal" type="tel" id="standard-error" label="金額" defaultValue="" />
         </FormControl>
-            <Button color="primary" margin="normal" variant="contained" >新增</Button>
+            <Button color="primary" margin="normal" variant="contained"  onClick={()=>onClickHandler()}>新增</Button>
     </StyledAdd>;
 };

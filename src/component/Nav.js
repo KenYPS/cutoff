@@ -19,7 +19,9 @@ const useStyles = makeStyles(theme => ({
     
   },
   active:{
-    background:'black',
+    background:'rgba(0, 0, 0, 0.5)',
+    padding:"5px",
+    borderRadius:"10px"
   },
   amount: {
     flex: 2,
