@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, FormControl, InputLabel, TextField, Toolbar,Typography} from '@material-ui/core';
+import { AppBar, FormControl, TextField, Toolbar,Typography} from '@material-ui/core';
 
 // import IconButton from '@material-ui/core/IconButton';
 import { NavLink } from "react-router-dom";
