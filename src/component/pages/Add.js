@@ -10,7 +10,6 @@ import {
 
 import moment from "moment"
 
-import {loginApi} from '../../api'
 
 // style
 const StyledAdd = styled.div`
@@ -27,10 +26,7 @@ export default props => {
         // setSelectedDate(date);
     };
     useEffect(() => { });
-console.log(process.env);
-
     const onClickHandler =()=>{
-        loginApi('mikohsu', '098765')
     }
     return <StyledAdd>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
