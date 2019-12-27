@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 
 // components
 import Layout from "./component/pages/Layout";
@@ -17,11 +17,12 @@ const Routes = () => (
             <Route exact path="/" render={() => <Add />} />
             <Route exact path="/list" render={() => <List />} />
         </Layout>
-        {/* <Redirect from="/" to="/main" /> */}
+        <Redirect from="/" to="/login" />
     </Switch>
 );
 
 export default withRouter(({ location: { pathname } }) => {
+
     return (
         <Routes />
     );

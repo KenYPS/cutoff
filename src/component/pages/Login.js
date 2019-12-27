@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { withRouter } from "react-router-dom"
 
 import { FormControl, TextField, Button, } from '@material-ui/core';
-import { apiLogin } from "../../api"
-
+import { apiLogin, firebaseApp } from "../../api"
+import { ContextStore } from "../../reducer"
 import bgImg from '../../img/login.jpeg'
 // style
 const StyledLogin = styled.div`
@@ -28,22 +29,17 @@ padding-top:80px;
 }
 `;
 
-export default ({
+export default withRouter(({
   history,
-  location,
 }) => {
   const [account, setAccount] = useState("")
   const [password, setPassword] = useState("")
-  // useEffect(() => { console.log(account);
-  // },[account]);
-console.log(history,location);
+  const { dispatch } = useContext(ContextStore);
 
   const onClickHandler = () => {
     apiLogin(account, password).then((res) => {
-    if(!!res){
-      
-    }
-
+      dispatch({type:'INIT_USER', value:firebaseApp.auth().currentUser.email})
+      history.push('/list')
     }).catch((error) => {
       alert(error)
     })
@@ -52,13 +48,14 @@ console.log(history,location);
   return <StyledLogin>
     <div className="container">
       <FormControl>
-        <TextField margin="normal" id="standard-error" label="帳號" onChange={(event) => setAccount(event.target.value)} />
+        <TextField margin="normal" label="帳號" onChange={(event) => setAccount(event.target.value)} />
       </FormControl>
       <FormControl>
-        <TextField margin="normal" id="standard-error" label="密碼" type='password' onChange={event => setPassword(event.target.value)} />
+        <TextField margin="normal" label="密碼" type='password' onChange={event => setPassword(event.target.value)} />
       </FormControl>
       <Button color="primary" margin="normal" variant="contained" onClick={onClickHandler}>登入</Button>
 
     </div>
   </StyledLogin>;
-};
+}
+)

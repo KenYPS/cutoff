@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Nav from '../Nav'
+
+import {withRouter} from "react-router-dom"
 // components
 
 // style
@@ -21,7 +23,7 @@ width:100%;
 height: calc(100% - 81px);
 box-sizing:border-box;
 `
-export default ({ children }) => {
+export default withRouter(({ children }) => {
 
   useEffect(() => { });
 
@@ -35,4 +37,5 @@ export default ({ children }) => {
       {children}
     </Container>
   </StyledLayout>;
-};
+}
+)

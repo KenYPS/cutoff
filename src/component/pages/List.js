@@ -28,8 +28,8 @@ export default props => {
       </TableRow>
     </TableHead>
     <TableBody>
-      {rows.map(row => (
-        <TableRow key={row.time}>
+      {rows.map((row, index) => (
+        <TableRow key={index}>
           <TableCell align="left">{row.time}</TableCell>
           <TableCell align="left">{row.item}</TableCell>
           <TableCell align="left">{row.cash}</TableCell>

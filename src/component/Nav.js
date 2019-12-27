@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, FormControl, TextField, Toolbar,Typography} from '@material-ui/core';
+import { AppBar, FormControl, TextField, Toolbar, Typography } from '@material-ui/core';
 
 // import IconButton from '@material-ui/core/IconButton';
 import { NavLink } from "react-router-dom";
+
+import { ContextStore } from "../reducer"
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,24 +17,26 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flex: 1,
-    textAlign:'center',
-    borderRadius:'10px'
-    
+    textAlign: 'center',
+    borderRadius: '10px'
+
   },
-  active:{
-    background:'rgba(0, 0, 0, 0.5)',
-    padding:"5px",
-    borderRadius:"10px"
+  active: {
+    background: 'rgba(0, 0, 0, 0.5)',
+    padding: "5px",
+    borderRadius: "10px"
   },
   amount: {
     flex: 2,
-    marginLeft:"10px",
+    marginLeft: "10px",
   },
 }));
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-
+  const { state } = useContext(ContextStore);
+  console.log(state.toJS());
+  
   return (
     <div className={classes.root}>
       <AppBar>
@@ -44,17 +49,17 @@ export default function ButtonAppBar() {
               新增
             </NavLink>
           </Typography>
-          <Typography variant="h6"  className={classes.title}>
-          <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/list">
+          <Typography variant="h6" className={classes.title}>
+            <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/list">
               列表
             </NavLink>
           </Typography>
-          <FormControl  className={classes.amount}>
-            <TextField margin="normal" id="standard-error" label="零用金總額" defaultValue="15000" />
-        </FormControl>
-        <FormControl className={classes.amount}>
-            <TextField margin="normal" id="standard-error" label="現金餘額" defaultValue="28" disabled/>
-        </FormControl>
+          <FormControl className={classes.amount}>
+            <TextField margin="normal" label="零用金總額" defaultValue="15000" />
+          </FormControl>
+          <FormControl className={classes.amount}>
+            <TextField margin="normal" label="現金餘額" defaultValue="28" disabled />
+          </FormControl>
         </Toolbar>
       </AppBar>
     </div>
