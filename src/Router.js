@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route, withRouter, Redirect } from "react-router-dom";
-
+import { firebaseApp } from './api'
 // components
 import Layout from "./component/pages/Layout";
 import LoginPage from "./component/pages/Login";
@@ -21,8 +21,10 @@ const Routes = () => (
     </Switch>
 );
 
-export default withRouter(({ location: { pathname } }) => {
-
+export default withRouter(({ history, location }) => {
+    // if(location.pathname!=='/login'){
+    //     if(!firebaseApp.auth().currentUser)history.push('/login')
+    // }
     return (
         <Routes />
     );
