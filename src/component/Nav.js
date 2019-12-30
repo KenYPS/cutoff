@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     flex: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   title: {
     flex: 1,
@@ -35,8 +35,6 @@ const useStyles = makeStyles(theme => ({
 export default function ButtonAppBar() {
   const classes = useStyles();
   const { state } = useContext(ContextStore);
-  console.log(state.toJS());
-  
   return (
     <div className={classes.root}>
       <AppBar>
@@ -54,9 +52,14 @@ export default function ButtonAppBar() {
               列表
             </NavLink>
           </Typography>
-          <FormControl className={classes.amount}>
+          <Typography variant="h6" className={classes.title}>
+            <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/setting">
+              設定
+            </NavLink>
+          </Typography>
+          {/* <FormControl className={classes.amount}>
             <TextField margin="normal" label="零用金總額" defaultValue="15000" />
-          </FormControl>
+          </FormControl> */}
           <FormControl className={classes.amount}>
             <TextField margin="normal" label="現金餘額" defaultValue="28" disabled />
           </FormControl>

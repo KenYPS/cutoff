@@ -24,7 +24,7 @@ const Routes = () => (
 export default withRouter(({ history, location }) => {
     // if(location.pathname!=='/login'){
     //     if(!firebaseApp.auth().currentUser)history.push('/login')
-    // }
+    // } 
     return (
         <Routes />
     );
