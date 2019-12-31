@@ -6,6 +6,8 @@ import { FormControl, TextField, Button, } from '@material-ui/core';
 import { apiLogin, firebaseApp } from "../../api"
 import { ContextStore } from "../../reducer"
 import bgImg from '../../img/login.jpeg'
+
+
 // style
 const StyledLogin = styled.div`
 width:100%;
@@ -32,23 +34,26 @@ padding-top:80px;
 export default withRouter(({
   history,
 }) => {
-  const [account, setAccount] = useState("")
+  const [account, setAccount] = useState(localStorage.getItem("account"))
   const [password, setPassword] = useState("")
   const { dispatch } = useContext(ContextStore);
 
   const onClickHandler = () => {
     apiLogin(account, password).then((res) => {
-      dispatch({type:'INIT_USER', value:firebaseApp.auth().currentUser.email})
+      console.log(res);
+      localStorage.setItem("account", account)
+      const accountName = abstractAccount(res.user.email)
+      dispatch({type:'INIT_USER', value:accountName})
       history.push('/list')
     }).catch((error) => {
       alert(error)
     })
   }
-
+const abstractAccount = email=>email.replace(/@.*$/,"")
   return <StyledLogin>
     <div className="container">
       <FormControl>
-        <TextField margin="normal" label="帳號" onChange={(event) => setAccount(event.target.value)} />
+        <TextField margin="normal" label="帳號" onChange={(event) => setAccount(event.target.value)} value={account}/>
       </FormControl>
       <FormControl>
         <TextField margin="normal" label="密碼" type='password' onChange={event => setPassword(event.target.value)} />

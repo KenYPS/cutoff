@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Nav from '../Nav'
-
+import {firebaseApp} from "../../api"
 import {withRouter} from "react-router-dom"
 // components
 
@@ -25,7 +25,13 @@ box-sizing:border-box;
 `
 export default withRouter(({ children }) => {
 
-  useEffect(() => { });
+  useEffect(() => { 
+   console.log( firebaseApp.auth().onAuthStateChanged((user)=>{
+console.log(user);
+
+   }));
+   
+  },[]);
 
   return <StyledLayout>
     <NavContainer>

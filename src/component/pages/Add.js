@@ -10,7 +10,7 @@ import {
 
 import moment from "moment"
 import { ContextStore } from "../../reducer"
-
+import { apiSendData } from "../../api"
 // style
 const StyledAdd = styled.div`
 padding:0 10%;
@@ -27,11 +27,7 @@ export default props => {
     const { state, dispatch } = useContext(ContextStore);
     const cutoffDate = state.get("cutoffDate")
     const sendData = state.get("sendData")
-    // useEffect(() => {
-    //     cutoffMonthValue()
-    //     console.log(cutoffMonths);
-
-    // }, [])
+    const account = state.get("account")
 
     useEffect(() => {
         dispatch({ type: 'INIT_SEND_DATA' })
@@ -39,26 +35,37 @@ export default props => {
 
     useEffect(() => {
         console.log(sendData.toJS());
-        
     }, [sendData])
 
     const onSendHandler = () => {
         const amount = sendData.get("amount")
-        if (!validEmpty(amount)) return
-        if(!validNumber(amount)) return
+        if (!validEmpty(amount)) return console.log(456);
+        if (!validNumber(amount)) return console.log(132);
+
+        const data = {
+            account,
+            cutoffMonth: sendData.get("cufoffMonth"),
+            sendData: sendData.toJS()
+        }
+        
+        apiSendData(data).then(()=>{
+           window.alert("新增成功");
+        })
+    }
+    const validEmpty = (value) => {
+        return !!value ? true : false
 
     }
-    const validEmpty =(value)=>{
-       return !!value?true:false
+    const validNumber = (value) => {
+        return typeof Number(value) === 'number' ? true : false
+    }
 
-    }
-    const validNumber=(value)=>{
-        return typeof value === 'number'?true :false
-    }
     const cutoffMonthValue = () => {
         let newCutoffMonthArray = []
         for (let i = 0; i < 2; i++) {
-            newCutoffMonthArray.push(moment().add(`${checkCutoffDateIsNextMonth ? i + 1 : i}`, 'month').month() + 1)
+            const year = moment().add(`${checkCutoffDateIsNextMonth ? i + 1 : i}`, 'month').year()
+            const month = moment().add(`${checkCutoffDateIsNextMonth ? i + 1 : i}`, 'month').month() + 1
+            newCutoffMonthArray.push(`${year}-${month}`)
         }
         return newCutoffMonthArray
     }
@@ -67,8 +74,6 @@ export default props => {
     }
 
     const modifyAddSendData = (path, value) => {
-        console.log(value);
-        
         dispatch({
             type: 'MODIFYDATA', value: {
                 path: ['sendData', path], value
@@ -86,7 +91,7 @@ export default props => {
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                     disableToolbar
-                    format="yyyy/MM/dd"
+                    format="yyyy-MM-dd"
                     margin="normal"
                     label="記帳日"
                     value={sendData.get('date')}
@@ -111,7 +116,7 @@ export default props => {
             >
                 {
                     cutoffMonthValue().map((month, index) =>
-                        <MenuItem value={month} key={index} > {`${month}月`}</MenuItem>
+                        <MenuItem value={month} key={index} > {`${month}`}</MenuItem>
                     )
                 }
             </Select>
@@ -140,22 +145,22 @@ export default props => {
             </Select>
         </FormControl>
         <FormControl>
-            <TextField margin="normal" 
-            label="項目" 
-            onChange={({ target }) => modifyAddSendData('itemType', target.value)} />
+            <TextField margin="normal"
+                label="項目"
+                onChange={({ target }) => modifyAddSendData('itemType', target.value)} />
         </FormControl>
         <FormControl>
-            <TextField margin="normal" 
-            label="詳情" 
-            defaultValue="" 
-            onChange={({ target }) => modifyAddSendData('detail', target.value)}
+            <TextField margin="normal"
+                label="詳情"
+                defaultValue=""
+                onChange={({ target }) => modifyAddSendData('detail', target.value)}
             />
         </FormControl>
         <FormControl>
-            <TextField margin="normal" 
-            type="tel" 
-            label="金額" 
-            onChange={({ target }) => modifyAddSendData('amount', target.value)}
+            <TextField margin="normal"
+                type="tel"
+                label="金額"
+                onChange={({ target }) => modifyAddSendData('amount', target.value)}
             />
         </FormControl>
         <Button color="primary" margin="normal" variant="contained" onClick={() => onSendHandler()}>新增</Button>

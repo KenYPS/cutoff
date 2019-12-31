@@ -12,8 +12,10 @@ const SET_SELECTED_MONTH = "SET_SELECTED_MONTH"
 const MODIFYDATA = "MODIFYDATA"
 const INIT_SEND_DATA = "INIT_SEND_DATA"
 
-const cutoffMonthValue = (cutoffDate) => {
-    return moment().add(`${checkCutoffDateIsNextMonth(cutoffDate) ? 1 : 0}`, 'month').month() + 1
+const cutoffMonthValue = (cutoffDate) => { 
+const year = moment().add(`${checkCutoffDateIsNextMonth(cutoffDate) ? 1 : 0}`, 'month').year()
+const month = moment().add(`${checkCutoffDateIsNextMonth(cutoffDate) ? 1 : 0}`, 'month').month() + 1
+    return `${year}-${month}`
 }
 
 const checkCutoffDateIsNextMonth = (cutoffDate) => {
@@ -21,9 +23,9 @@ const checkCutoffDateIsNextMonth = (cutoffDate) => {
 }
 
 const initialState = fromJS({
-    user: "",
+    account: "",
     cutoffDate: 19,
-    selectedMonth: moment().month() + 1,
+    selectedMonth: `${moment().year()}-${moment().month() + 1}`,
     sendData: {
         date: moment().format('YYYY-MM-D'),
         cufoffMonth: 0,
@@ -48,7 +50,7 @@ const initSendData = fromJS({
 const reducer = (state, action) => {
     switch (action.type) {
         case INIT_USER:
-            return state.set('user', action.value)
+            return state.set('account', action.value)
         case INIT_SEND_DATA:
             return state.set('sendData', initSendData)
         case SET_SELECTED_MONTH:

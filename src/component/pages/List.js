@@ -1,9 +1,12 @@
-import React, { useEffect } from "react";
-// import styled from "styled-components";
+import React, { useEffect, useContext } from "react";
 import { Table, TableBody, TableContainer, TableHead, TableRow, Paper, TableCell, makeStyles, TableFooter } from '@material-ui/core';
 import MonthPicker from "../MonthPicker"
 
+// api
+import { apiGetData } from "../../api"
 
+// 
+import { ContextStore } from "../../reducer"
 
 // style
 // const StyledList = styled.div``;
@@ -36,13 +39,17 @@ const useStyles = makeStyles({
 });
 
 export default props => {
-
-  useEffect(() => { });
+  const { state } = useContext(ContextStore);
+  const account = state.get("account")
+  const selectedMonth = state.get('selectedMonth')
+  useEffect(() => {
+    apiGetData({account,selectedMonth }).once("value",(snapshot)=>{
+      console.log(snapshot.val());
+    })
+  }, [selectedMonth,apiGetData]);
   const classes = useStyles();
   return <>
-
-  <MonthPicker/>
-
+    <MonthPicker />
     <TableContainer component={Paper} className={classes.table}>
       <Table size="small" aria-label="a dense table" stickyHeader stickyFooter>
         <TableHead>

@@ -22,7 +22,7 @@ justify-content:center;
 export default props => {
     const { state, dispatch } = useContext(ContextStore);
     const selectedMonth = state.get("selectedMonth")
-    const SHOWMONTHS = 1
+    const SHOWMONTHS = 0
     const [monthsArray, setMonthArrary] = useState([])
     useEffect(() => {
         monthArrary(SHOWMONTHS)
@@ -31,9 +31,11 @@ export default props => {
     const monthArrary = (showMonths = 5) => {
         let newMonthArray = []
         for (let i = showMonths; i >= 0; i--) {
-            newMonthArray.push(moment().subtract(i, 'month').month() + 1)
+            const month =moment().subtract(i, 'month').month() + 1
+            const year = moment().subtract(i, 'month').year()
+            newMonthArray.push(`${year}-${month}`)
         }
-        newMonthArray.push(moment().add(1, 'month').month() + 1)
+        newMonthArray.push(`${moment().add(1,"month").year()}-${moment().add(1,"month").month() + 1}`)
         setMonthArrary(newMonthArray)
     }
     const handleMonthSelected = (month) => {
