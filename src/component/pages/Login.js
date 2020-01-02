@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom"
 
 import { FormControl, TextField, Button, } from '@material-ui/core';
-import { apiLogin, firebaseApp } from "../../api"
-import { ContextStore } from "../../reducer"
-import bgImg from '../../img/login.jpeg'
-
+import { ContextStore } from "reducer"
+import bgImg from 'Img/login.jpeg'
+import { apiLogin } from "Api"
+// util
+import {abstractAccount} from "Utils/tools"
 
 // style
 const StyledLogin = styled.div`
@@ -40,7 +41,6 @@ export default withRouter(({
 
   const onClickHandler = () => {
     apiLogin(account, password).then((res) => {
-      console.log(res);
       localStorage.setItem("account", account)
       const accountName = abstractAccount(res.user.email)
       dispatch({type:'INIT_USER', value:accountName})
@@ -49,7 +49,7 @@ export default withRouter(({
       alert(error)
     })
   }
-const abstractAccount = email=>email.replace(/@.*$/,"")
+
   return <StyledLogin>
     <div className="container">
       <FormControl>

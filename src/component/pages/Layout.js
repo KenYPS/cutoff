@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Nav from '../Nav'
-import {firebaseApp} from "../../api"
-import {withRouter} from "react-router-dom"
+import { withRouter } from "react-router-dom"
+// import ClipLoader from "react-spinners/ClipLoader";
 // components
 
 // style
@@ -25,21 +25,13 @@ box-sizing:border-box;
 `
 export default withRouter(({ children }) => {
 
-  useEffect(() => { 
-   console.log( firebaseApp.auth().onAuthStateChanged((user)=>{
-console.log(user);
-
-   }));
-   
-  },[]);
-
   return <StyledLayout>
     <NavContainer>
-      <Nav>
-      </Nav>
+      <Nav/>
     </NavContainer>
 
     <Container>
+        {/* <ClipLoader/> */}
       {children}
     </Container>
   </StyledLayout>;

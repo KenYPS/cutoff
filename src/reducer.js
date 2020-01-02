@@ -2,49 +2,47 @@
 import React from 'react';
 import { fromJS } from 'immutable';
 import moment from "moment"
-// import { fromJS } from 'immutable';   
-// import get from "lodash/get";
+// import { fromJS } from 'immutable';  
 
+import {cutoffMonthValue} from "Utils/tools"
 
 //constants
 const INIT_USER = 'INIT_USER'
 const SET_SELECTED_MONTH = "SET_SELECTED_MONTH"
 const MODIFYDATA = "MODIFYDATA"
 const INIT_SEND_DATA = "INIT_SEND_DATA"
-
-const cutoffMonthValue = (cutoffDate) => { 
-const year = moment().add(`${checkCutoffDateIsNextMonth(cutoffDate) ? 1 : 0}`, 'month').year()
-const month = moment().add(`${checkCutoffDateIsNextMonth(cutoffDate) ? 1 : 0}`, 'month').month() + 1
-    return `${year}-${month}`
-}
-
-const checkCutoffDateIsNextMonth = (cutoffDate) => {
-    return moment().date() > cutoffDate ? true : false
-}
+const selectedMonth = `${moment().year()}-${moment().month() + 1}`
 
 const initialState = fromJS({
     account: "",
     cutoffDate: 19,
-    selectedMonth: `${moment().year()}-${moment().month() + 1}`,
+    selectedMonth,
     sendData: {
-        date: moment().format('YYYY-MM-D'),
+        date: moment().format('YYYY/MM/D'),
         cufoffMonth: 0,
         payType: 0,
         advanced: 0,
         itemType: "",
         detail: "",
-        amount: 0
+        cash: 0,
+        nonCash:0,
+        amount:0
     }
 });
 
+export const {newCutoffMonthArray, nowCutoffMonth} = cutoffMonthValue(initialState.get('cutoffDate'))
+
+
 const initSendData = fromJS({
-    date: moment().format('YYYY-MM-D'),
-    cufoffMonth: cutoffMonthValue(initialState.get('cutoffDate')),
+    date: moment().format('YYYY/MM/D'),
+    cufoffMonth: nowCutoffMonth,
     payType: 0,
     advanced: 0,
     itemType: "",
     detail: "",
-    amount: 0
+    amount: 0,
+    cash: 0,
+    nonCash:0,
 })
 
 const reducer = (state, action) => {
@@ -69,5 +67,4 @@ export {
     reducer,
     ContextStore
 };
-
 

@@ -5,7 +5,7 @@ import { HashRouter } from "react-router-dom";
 import Routes from "./Router";
 
 //reducer
-import { reducer, initialState, ContextStore } from './reducer';
+import { reducer, initialState, ContextStore } from 'reducer';
 
 export default () => {
   const [state, dispatch] = useReducer(reducer, initialState);
