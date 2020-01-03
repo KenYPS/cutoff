@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import { HashRouter } from "react-router-dom";
 
 // components
-import Routes from "./Router";
+import Routes from "./router";
 
 //reducer
 import { reducer, initialState, ContextStore } from 'reducer';
