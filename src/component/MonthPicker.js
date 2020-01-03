@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { ContextStore,newCutoffMonthArray } from "../reducer"
+import { ContextStore,newCutoffMonthArray } from "reducer"
 
 // style
 const StyledMonthPicker = styled.div`

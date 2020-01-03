@@ -6,7 +6,7 @@ import LoginPage from "component/pages/Login";
 import Add from "component/pages/Add";
 import List from "component/pages/List";
 
-import { firebaseApp } from "Api"
+import { firebaseApp } from "customUses"
 import { ContextStore } from "reducer"
 import { abstractAccount } from "Utils/tools"
 

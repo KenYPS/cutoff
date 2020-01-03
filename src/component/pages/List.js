@@ -6,7 +6,7 @@ import MonthPicker from "../MonthPicker"
 import StyledClipLoader from "component/Styled/StyledSpinner";
 
 // api
-import { apiGetData } from "Api"
+import { apiGetData } from "customUses"
 
 // reducer
 import { ContextStore } from "reducer"

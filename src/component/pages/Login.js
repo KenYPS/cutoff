@@ -4,8 +4,8 @@ import { withRouter } from "react-router-dom"
 
 import { FormControl, TextField, Button, } from '@material-ui/core';
 import { ContextStore } from "reducer"
-import bgImg from 'Static/login.jpeg'
-import { apiLogin } from "Api"
+// import bgImg from 'assets/login.jpeg'
+import { apiLogin } from "customUses"
 // util
 import {abstractAccount} from "Utils/tools"
 
@@ -13,7 +13,7 @@ import {abstractAccount} from "Utils/tools"
 const StyledLogin = styled.div`
 width:100%;
 height: 100%;
-background-image:url(${bgImg}});
+background-image:url("assets/login.jpeg");
 background-repeat: no-repeat;
 background-size: cover;
 padding-top:80px;
