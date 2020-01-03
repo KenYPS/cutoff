@@ -16,7 +16,7 @@ const Routes = () => (
     <Switch>
         <Route exact path="/login" render={() => <LoginPage />} />
         <Layout>
-            <Route exact path="/" render={() => <Add />} />
+            <Route exact path="/add" render={() => <Add />} />
             <Route exact path="/list" render={() => <List />} />
         </Layout>
         <Redirect from="/" to="/login" />

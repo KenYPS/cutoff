@@ -11,7 +11,7 @@ export default ({ api }) => {
             const val = res.val()
             for (const key in val) {
                 if (val.hasOwnProperty(key)) {
-                    const element = Map(val[key]);
+                    const element = Map(val[key]).merge(Map({key}));
                     array.push(element)
                 }
             }

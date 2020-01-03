@@ -16,9 +16,18 @@ export const apiTokenVerify = () => {
     return firebase.auth().currentUser
 }
 
-export const apiSendData = ({ account, sendData, cutoffMonth }) => {
+export const apiAddData = ({ account, sendData, cutoffMonth }) => {
     return firebase.database().ref(`/cutoff/${account}/${cutoffMonth}`).push(sendData)
 
+}
+
+export const apiEditData = ({account, sendData,cutoffMonth,key,originCutoffDate })=>{
+    firebase.database().ref(`/cutoff/${account}/${originCutoffDate}/${key}`).remove()
+    return firebase.database().ref(`/cutoff/${account}/${cutoffMonth}/${key}`).update(sendData)
+}
+
+export const apiDeleteData = ({account, sendData,cutoffMonth,key })=>{
+    return firebase.database().ref(`/cutoff/${account}/${cutoffMonth}/${key}`).remove()
 }
 
 export const apiGetData = ({ account, selectedMonth }) => {

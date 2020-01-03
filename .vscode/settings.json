@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/ae67c06f-f873-4d13-ae39-da882227ed49/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/cutoffmoney",
+    "appService.deploySubpath": ""
 }

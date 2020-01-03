@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Select from '@material-ui/core/Select';
-import { MenuItem, FormControl, InputLabel, TextField, Button, } from '@material-ui/core';
+import { MenuItem, FormControl, InputLabel, TextField, Button, makeStyles } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     KeyboardDatePicker,
     MuiPickersUtilsProvider
 } from '@material-ui/pickers';
+import { withRouter } from "react-router";
 
 
-import { apiSendData } from "customUses"
+import { apiAddData, apiEditData, apiDeleteData } from "customUses"
 import moment from "moment"
 import { ContextStore, newCutoffMonthArray } from "reducer"
 
@@ -21,40 +22,84 @@ display: flex;
 flex-direction:column;
 justify-content:center;
 overflow-y:hidden;
-height:90%;
+/* height:90%; */
 `;
 
+const useStyles = makeStyles(theme => ({
+    margin: {
+        margin: theme.spacing(1),
+    },
 
-export default props => {
+}));
+
+export default withRouter(({ location: { pathname }, onModalClose,
+    fetchApiFunc
+}) => {
     const { state, dispatch } = useContext(ContextStore);
     const sendData = state.get("sendData")
     const account = state.get("account")
+    const classes = useStyles();
+    const addType = state.get('addType')
+    const originCutoffDate = state.get("originCutoffDate")
 
     useEffect(() => {
-        dispatch({ type: 'INIT_SEND_DATA' })
+        if (pathname === "/add") {
+            dispatch({ type: 'INIT_SEND_DATA' })
+        }
     }, [dispatch])
 
     useEffect(() => {
-        console.log(sendData.toJS());
-        console.log(state.toJS());
-        
+        // console.log(sendData.toJS());
     }, [sendData, state])
 
     const onSendHandler = () => {
         const amount = sendData.get("amount")
-        if (!validEmpty(amount)) return console.log(456);
-        if (!validNumber(amount)) return console.log(132);
-     
+        if (!validEmpty(amount)) return window.alert('金額為空');
+        if (!validNumber(amount)) return window.alert('金額不是數字');
+
         const data = {
             account,
             cutoffMonth: sendData.get("cufoffMonth"),
             sendData: sendData.toJS()
         }
-        console.log(data);
-        // return 
-        apiSendData(data).then(()=>{
-           window.alert("新增成功");
+        if (addType === 'add') {
+            apiAddData(data).then(() => {
+                window.alert("新增成功");
+                dispatch({ type: 'INIT_SEND_DATA' })
+
+            })
+        } else if (addType === 'edit') {
+            const key = sendData.get('key')
+            
+            const editData = {
+                account,
+                key,
+                originCutoffDate,
+                cutoffMonth: sendData.get("cufoffMonth"),
+                sendData: sendData.delete('key').toJS()
+            }
+
+            apiEditData(editData).then(() => {
+                window.alert("修改成功");
+                fetchApiFunc()
+                onModalClose()
+            })
+
+        }
+    }
+    const onDeleteHandler = () => {
+        const key = sendData.get('key')
+        const editData = {
+            account,
+            key,
+            cutoffMonth: sendData.get("cufoffMonth")
+        }
+        apiDeleteData(editData).then(() => {
+            window.alert("刪除成功");
+            fetchApiFunc()
+            onModalClose()
         })
+
     }
     const validEmpty = (value) => {
         return !!value ? true : false
@@ -78,13 +123,16 @@ export default props => {
 
     };
 
-    const handleAmountChange=(amount)=>{
+    const handleAmountChange = (amount) => {
         modifyAddSendData('amount', amount)
-       const payType = sendData.get('payType')
-        if(payType===0) modifyAddSendData('cash', amount)
-        if(payType===1) modifyAddSendData('nonCash', amount)
+        const payType = sendData.get('payType')
+        if (payType === 0) modifyAddSendData('cash', amount)
+        if (payType === 1) modifyAddSendData('nonCash', amount)
     }
-    return <StyledAdd>
+    const stopPropagationClick = (e) => {
+        e.stopPropagation()
+    }
+    return <StyledAdd onClick={(e) => stopPropagationClick(e)}>
         <FormControl>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
@@ -111,7 +159,7 @@ export default props => {
                 InputLabelProps={{
                     shrink: true,
                 }}
-                onChange={({ target }) => modifyAddSendData('cufoffMonth', target.value)}
+                onChange={({ target }) =>  modifyAddSendData('cufoffMonth', target.value)}
             >
                 {
                     newCutoffMonthArray.map((month, index) =>
@@ -147,12 +195,13 @@ export default props => {
         <FormControl>
             <TextField margin="normal"
                 label="項目"
+                value={sendData.get('itemType')}
                 onChange={({ target }) => modifyAddSendData('itemType', target.value)} />
         </FormControl>
         <FormControl>
             <TextField margin="normal"
                 label="詳情"
-                defaultValue=""
+                value={sendData.get('detail')}
                 onChange={({ target }) => modifyAddSendData('detail', target.value)}
             />
         </FormControl>
@@ -160,9 +209,16 @@ export default props => {
             <TextField margin="normal"
                 type="tel"
                 label="金額"
+                value={sendData.get('amount')}
+
                 onChange={({ target }) => handleAmountChange(target.value)}
             />
         </FormControl>
-        <Button color="primary" margin="normal" variant="contained" onClick={() => onSendHandler()}>新增</Button>
+        <FormControl>
+            <Button color="primary" className={classes.margin} margin="normal" variant="contained" onClick={() => onSendHandler()}>{addType === 'add' ? '新增' : '編輯'}</Button>
+            {addType === 'edit' ? <Button color="secondary" onClick={() => window.confirm('確定刪除') && onDeleteHandler()}>刪除</Button> : null}
+        </FormControl>
+
     </StyledAdd>;
-};
+}
+)

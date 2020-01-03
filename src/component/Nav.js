@@ -39,11 +39,17 @@ export default function ButtonAppBar() {
     <div className={classes.root}>
       <AppBar>
         <Toolbar>
+           <FormControl className={classes.amount}>
+            <TextField margin="normal" label="零用金總額" defaultValue="15000" />
+          </FormControl>
+          <FormControl className={classes.amount}>
+            <TextField margin="normal" label="現金餘額" defaultValue="28" />
+          </FormControl>
           {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton> */}
           <Typography variant="h6" className={classes.title}>
-            <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/">
+            <NavLink className="announcement-data-name" exact={true} activeClassName={classes.active} to="/add">
               新增
             </NavLink>
           </Typography>
@@ -57,12 +63,7 @@ export default function ButtonAppBar() {
               設定
             </NavLink>
           </Typography>
-          {/* <FormControl className={classes.amount}>
-            <TextField margin="normal" label="零用金總額" defaultValue="15000" />
-          </FormControl> */}
-          <FormControl className={classes.amount}>
-            <TextField margin="normal" label="現金餘額" defaultValue="28" disabled />
-          </FormControl>
+         
         </Toolbar>
       </AppBar>
     </div>
