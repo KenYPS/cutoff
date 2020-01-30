@@ -89,9 +89,9 @@ export default props => {
 
         <TableBody>
           {fetchData.map((row, index) => (
-            <TableRow key={index} className={row.get('advanced') ? classes['isAdvanced'] : null} >
+            <TableRow key={index} className={row.get('advanced') ? classes['isAdvanced'] : null}  onClick={()=>modalOpenhandler(row)}>
               <TableCell align="left" component="th">{row.get('date')}</TableCell>
-              <TableCell align="left"  onClick={()=>modalOpenhandler(row)}>{row.get("itemType")}</TableCell>
+              <TableCell align="left" >{row.get("itemType")}</TableCell>
               <TableCell align="left">{row.get('cash')}</TableCell>
               <TableCell align="left">{row.get('nonCash')}</TableCell>
             </TableRow>
@@ -116,10 +116,10 @@ export default props => {
           </TableRow>
         </TableBody>
       </Table>
+    </TableContainer>
 
-      <StyledReactModal isOpen={openModal} onModalClose={() => setOpenModal(false)}>
+    <StyledReactModal isOpen={openModal} onModalClose={() => setOpenModal(false)}>
         <Add onModalClose={() => setOpenModal(false)}  fetchApiFunc={fetchApiFunc}/>
       </StyledReactModal>
-    </TableContainer>
   </>
 };
