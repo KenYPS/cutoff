@@ -3,7 +3,6 @@ version: "3.7"
 # you can run multiple services inside one docker compose file
 # define them with their dependencies one after the other
 services:
-  # service 1 named react-prod
   react-prod:
     # service 1 container name
     container_name: react-prod
@@ -19,3 +18,5 @@ services:
         # to be used to access the container from the outside
     ports:
       - "8800:9090"
+
+      
