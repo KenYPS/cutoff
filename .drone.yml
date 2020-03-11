@@ -1,11 +1,16 @@
-pipeline:
+kind:pipeline
+
+
+step :
   build:
     image: node
     commands:
-      - npm install
-      - npm test
+      - yarn
+      - yarn build
   publish:
     image: plugins/docker
     repo: drone/node-demo
     secrets: [ docker_username, docker_password ]
     dry_run: true # remove this to publish
+
+    2d741ac5916f4843dd6e37095cc69a408d386057
