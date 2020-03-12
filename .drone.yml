@@ -13,6 +13,7 @@ steps:
   settings:
     repo: nginx-cutoff
     dockerfile: ./dockerfile
+    
 trigger:
   branch:
     - master
