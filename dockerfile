@@ -9,7 +9,6 @@
 
 # RUN yarn build
 
-
 # set up production environment
 # the base image for this is an alpine based nginx image
 FROM nginx:alpine
