@@ -1,12 +1,20 @@
 kind: pipeline
+type: docker
 name: default
 
-clone:
-  disable: true
-
 steps:
-- name: test_drone
-  image: alpine:3.9
+- name: build
+  image: node:12.14.1-alpine
   commands:
-  - echo "show hello world by drone"
-  - echo $(pwd)
+  - yarn
+  - yarn build
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: 2dddd
+    dockerfile: ./dockerfile
+    launch_debug: true
+
+trigger:
+  branch:
+    - master
