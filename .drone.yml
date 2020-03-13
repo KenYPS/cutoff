@@ -3,17 +3,17 @@ type: docker
 name: default
 
 steps:
-# - name: build
-#   image: node:12.14.1-alpine
-#   commands:
-#   - yarn
-#   - yarn build
-- name: docker
-  image: plugins/docker
-  settings:
-    repo: 2dddd
-    dockerfile: ./dockerfile
-    launch_debug: true
+- name: build
+  image: node:12.14.1-alpine
+  commands:
+  - yarn
+  - yarn build
+# - name: docker
+#   image: plugins/docker
+#   settings:
+#     repo: 2dddd
+#     dockerfile: ./dockerfile
+#     launch_debug: true
 
 trigger:
   branch:
