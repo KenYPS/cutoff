@@ -1,11 +1,12 @@
-pipeline:
+kind: pipeline
+name: default
 
-  build:
- 
-    image: node:alphine
- 
-    commands:
- 
-      - yarn
- 
-      - yarn build
+clone:
+  disable: true
+
+steps:
+- name: test_drone
+  image: alpine:3.9
+  commands:
+  - echo "show hello world by drone"
+  - echo $(pwd)
