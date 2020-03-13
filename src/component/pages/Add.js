@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import Select from '@material-ui/core/Select';
 import { MenuItem, FormControl, InputLabel, TextField, Button, makeStyles } from '@material-ui/core';
@@ -46,6 +46,7 @@ export default withRouter(({ location: { pathname }, onModalClose,
         if (pathname === "/add") {
             dispatch({ type: 'INIT_SEND_DATA' })
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch])
 
     useEffect(() => {

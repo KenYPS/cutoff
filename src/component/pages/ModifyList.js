@@ -1,6 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, {} from "react";
 import styled from "styled-components";
-import Add from "./Add"
+// import Add from "./Add"
 // style
 const StyledModifyList = styled.div`
 padding:20px;

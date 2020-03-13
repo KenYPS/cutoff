@@ -6,7 +6,7 @@ import MonthPicker from "../MonthPicker"
 import StyledClipLoader from "component/Styled/StyledSpinner";
 import StyledReactModal from "component/Styled/StyledReactModal"
 import Add from "./Add"
-import StyledModifyList from "./ModifyList"
+// import StyledModifyList from "./ModifyList"
 // api
 import { apiGetData } from "customUses"
 
@@ -34,6 +34,7 @@ export default props => {
 
   useEffect(() => {
     fetchApiFunc()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, selectedMonth]);
 
   useEffect(() => {

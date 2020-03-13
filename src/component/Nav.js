@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import React, { } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, FormControl, TextField, Toolbar, Typography } from '@material-ui/core';
 
 // import IconButton from '@material-ui/core/IconButton';
 import { NavLink } from "react-router-dom";
 
-import { ContextStore } from "reducer"
+// import { ContextStore } from "reducer"
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const { state } = useContext(ContextStore);
+  // const { state } = useContext(ContextStore);
   return (
     <div className={classes.root}>
       <AppBar>
