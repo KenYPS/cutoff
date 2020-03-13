@@ -8,12 +8,12 @@ steps:
   commands:
   - yarn
   - yarn build
-# - name: docker
-#   image: plugins/docker
-#   settings:
-#     repo: 2dddd
-#     dockerfile: ./dockerfile
-#     launch_debug: true
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: 2dddd
+    dockerfile: ./dockerfile
+    launch_debug: true
 
 trigger:
   branch:
